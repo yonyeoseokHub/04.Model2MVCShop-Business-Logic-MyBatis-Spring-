@@ -148,7 +148,7 @@ public class UserServiceTest {
 	}
 	
 	 //==>  주석을 풀고 실행하면....
-	 //@Test
+	 @Test
 	 public void testGetUserListAll() throws Exception{
 		 
 	 	Search search = new Search();
@@ -218,7 +218,7 @@ public class UserServiceTest {
 	 	System.out.println(totalCount);
 	 }
 	 
-	 @Test
+	 //@Test
 	 public void testGetUserListByUserName() throws Exception{
 		 
 	 	Search search = new Search();

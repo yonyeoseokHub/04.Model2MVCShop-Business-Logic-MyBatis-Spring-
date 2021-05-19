@@ -59,7 +59,7 @@ public class ProductServiceTest {
 		System.out.println("testGetProduct"+product);
 	}
 	
-	@Test
+	//@Test
 	public void testUpdateProduct() throws Exception{
 		
 		System.out.println("ProductServiceTest testUpdateProduct()시작");
@@ -79,5 +79,43 @@ public class ProductServiceTest {
 		product = productService.getProduct(10061);
 		
 	}
+	
+	@Test
+	 public void testGetProductListAll() throws Exception{
+		 
+		System.out.println("productServiceTEST.LIST시작");
+	 	Search search = new Search();
+	 	search.setCurrentPage(1);
+	 	search.setPageSize(3);
+	 	System.out.println("productServiceTEST.LIST시작2");
+	 	Map<String,Object> map = productService.getProductList(search);
+	 	
+	 	List<Object> list = (List<Object>)map.get("list");
+	 	Assert.assertEquals(3, list.size());
+	 	
+		//==> console 확인
+	 	//System.out.println(list);
+	 	
+	 	Integer totalCount = (Integer)map.get("totalCount");
+	 	System.out.println(totalCount);
+	 	
+	 	System.out.println("=======================================");
+	 	
+	 	search.setCurrentPage(1);
+	 	search.setPageSize(3);
+	 	search.setSearchCondition("0");
+	 	search.setSearchKeyword("");
+	 	map = productService.getProductList(search);
+	 	
+	 	list = (List<Object>)map.get("list");
+	 	Assert.assertEquals(3, list.size());
+	 	
+	 	//==> console 확인
+	 	//System.out.println(list);
+	 	
+	 	totalCount = (Integer)map.get("totalCount");
+	 	System.out.println(totalCount);
+	 }
+	 
 	
 }

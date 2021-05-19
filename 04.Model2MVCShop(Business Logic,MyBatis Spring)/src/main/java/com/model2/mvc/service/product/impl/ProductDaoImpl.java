@@ -1,6 +1,6 @@
 package com.model2.mvc.service.product.impl;
 
-import java.util.Map;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,15 +44,15 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public Map<String, Object> getProductList(Search search) throws Exception {
-//		return sqlSession.selectList("ProductMapper.getProductList", search);
-		return null;
+	public List<Product> getProductList(Search search) throws Exception {
+		System.out.println("getProductList 시작");
+		return sqlSession.selectList("ProductMapper.getProductList", search); 
 	}
-
+	
 	@Override
-	public int getTotalCount(String sql) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getTotalCount(Search search) throws Exception {
+		System.out.println("getTotalCount 시작");
+		return sqlSession.selectOne("ProductMapper.getTotalCount", search);
 	}
 
 }

@@ -46,22 +46,38 @@
 <select  id="getProductList"  parameterType="search"	resultMap="productSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT user_id , user_name , email
-											FROM users
+	  					FROM		(	SELECT prod_name, price, reg_date <!-- 현재상태? --> 
+											FROM product
 											<if test="searchCondition != null">
 												<where>
-													<if test="searchCondition == 0 and searchKeyword !='' ">
-										 				user_id = #{searchKeyword}
-													</if>
 													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				user_name = #{searchKeyword}
+										 				prod_name = #{searchKeyword}
 													</if>
+												<!-- 	<if test="searchCondition == 1 and searchKeyword !='' ">
+										 				user_name = #{searchKeyword}
+													</if>  -->
 												</where>
 											</if>
-											ORDER BY user_id ) inner_table
+											ORDER BY prod_name ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	 </select>
 	 
+	 
+	  <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT prod_name, price, reg_date
+						FROM product
+						<if test="searchCondition != null">
+							<where>
+								<if test="searchCondition == 1 and searchKeyword !='' ">
+						 			user_id = #{searchKeyword}
+								</if>
+							<!-- <if test="searchCondition == 1 and searchKeyword !='' ">
+						 		user_name = #{searchKeyword} 
+								</if> -->
+							</where>
+						</if> ) countTable						
+	 </select>
 
 </mapper>
